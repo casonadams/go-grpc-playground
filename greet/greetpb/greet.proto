@@ -9,7 +9,7 @@ message Greeting {
 }
 
 message GreetRequest {
-	Greeting gretting = 1;
+	Greeting greeting = 1;
 }
 
 message GreetResponse {
@@ -18,5 +18,6 @@ message GreetResponse {
 
 service GreetService{
 	// Uniary
+	// rpc Name should always take NameRequest and return NameResponse
 	rpc Greet(GreetRequest) returns (GreetResponse) {};
 }
