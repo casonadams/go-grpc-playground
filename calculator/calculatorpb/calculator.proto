@@ -3,20 +3,20 @@ syntax = "proto3";
 package calculator;
 option go_package="calculatorpb";
 
-message Calculator {
+message Add {
 	int64 a = 1;
 	int64 b = 2;
 }
 
-message CalculatorRequest {
-	Calculator calculator = 1;
+message AddRequest {
+	Add add = 1;
 }
 
-message CalculatorResponse {
+message AddResponse {
 	int64 result = 1;
 }
 
 // Unary service defintion to add 2 numbers
-service CalculatorService{
-	rpc Calculator(CalculatorRequest) returns (CalculatorResponse) {};
+service AddService{
+	rpc Add(AddRequest) returns (AddResponse) {};
 }

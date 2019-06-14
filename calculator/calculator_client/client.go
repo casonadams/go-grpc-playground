@@ -20,20 +20,20 @@ func main() {
 	// Make sure to close the connection
 	defer cc.Close()
 
-	c := calculatorpb.NewCalculatorServiceClient(cc)
+	c := calculatorpb.NewAddServiceClient(cc)
 	doUnary(c)
 }
 
-func doUnary(c calculatorpb.CalculatorServiceClient) {
+func doUnary(c calculatorpb.AddServiceClient) {
 	fmt.Println("Starting to do Unary RPC...")
-	req := &calculatorpb.CalculatorRequest{
-		Calculator: &calculatorpb.Calculator{
+	req := &calculatorpb.AddRequest{
+		Add: &calculatorpb.Add{
 			A: 3,
 			B: 10,
 		},
 	}
 
-	res, err := c.Calculator(context.Background(), req)
+	res, err := c.Add(context.Background(), req)
 	if err != nil {
 		log.Fatalf("Error while calling Calcualtor RPC: %v\n", err)
 	}

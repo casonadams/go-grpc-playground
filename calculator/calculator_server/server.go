@@ -12,12 +12,12 @@ import (
 
 type server struct{}
 
-func (*server) Calculator(ctx context.Context, req *calculatorpb.CalculatorRequest) (*calculatorpb.CalculatorResponse, error) {
+func (*server) Add(ctx context.Context, req *calculatorpb.AddRequest) (*calculatorpb.AddResponse, error) {
 	fmt.Printf("Calculate function was invoked with %v\n", req)
-	a := req.GetCalculator().GetA()
-	b := req.GetCalculator().GetB()
+	a := req.GetAdd().GetA()
+	b := req.GetAdd().GetB()
 	result := a + b
-	res := &calculatorpb.CalculatorResponse{
+	res := &calculatorpb.AddResponse{
 		Result: result,
 	}
 	return res, nil
@@ -32,7 +32,7 @@ func main() {
 	}
 
 	s := grpc.NewServer()
-	calculatorpb.RegisterCalculatorServiceServer(s, &server{})
+	calculatorpb.RegisterAddServiceServer(s, &server{})
 
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("Failed to server: %v\n", err)
