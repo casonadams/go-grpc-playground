@@ -20,23 +20,38 @@ func main() {
 	// Make sure to close the connection
 	defer cc.Close()
 
-	c := calculatorpb.NewAddServiceClient(cc)
+	c := calculatorpb.NewCalculatorServiceClient(cc)
 	doUnary(c)
 }
 
-func doUnary(c calculatorpb.AddServiceClient) {
-	fmt.Println("Starting to do Unary RPC...")
-	req := &calculatorpb.AddRequest{
+func doUnary(c calculatorpb.CalculatorServiceClient) {
+	fmt.Println("Starting to do Unary Add RPC...")
+	add_req := &calculatorpb.AddRequest{
 		Add: &calculatorpb.Add{
 			A: 3,
 			B: 10,
 		},
 	}
 
-	res, err := c.Add(context.Background(), req)
+	add, err := c.Add(context.Background(), add_req)
 	if err != nil {
-		log.Fatalf("Error while calling Calcualtor RPC: %v\n", err)
+		log.Fatalf("Error while calling Calcualtor Add RPC: %v\n", err)
 	}
-	log.Printf("Response from Calculate: %v\n", res.Result)
+
+	fmt.Println("Starting to do Unary Subtract RPC...")
+	subtract_req := &calculatorpb.SubtractRequest{
+		Subtract: &calculatorpb.Subtract{
+			A: 10,
+			B: 3,
+		},
+	}
+
+	subtract, err := c.Subtract(context.Background(), subtract_req)
+	if err != nil {
+		log.Fatalf("Error while calling Calculator Subtract RPC: %v\n", err)
+	}
+
+	log.Printf("Response from Calculate Add: %v\n", add.Result)
+	log.Printf("Response from Calculate Subtract: %v\n", subtract.Result)
 
 }
