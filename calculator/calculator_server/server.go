@@ -24,7 +24,7 @@ func (*server) Add(ctx context.Context, req *calculatorpb.AddRequest) (*calculat
 }
 
 func (*server) Subtract(ctx context.Context, req *calculatorpb.SubtractRequest) (*calculatorpb.SubtractResponse, error) {
-	fmt.Printf("Subtract function was invoked with %v/n", req)
+	fmt.Printf("Subtract function was invoked with %v\n", req)
 	a := req.GetSubtract().GetA()
 	b := req.GetSubtract().GetB()
 	result := a - b
